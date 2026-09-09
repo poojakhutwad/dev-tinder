@@ -2,12 +2,34 @@ const express = require("express");
 
 const app = express() // creating the instance of an expressjs application i.e. creating new expressjs app
 
+const {adminAuth, userAuth} = require("./middleware/auth")
+
+app.use("/admin", adminAuth);
+
+app.get("/admin/getAllData", (req,res) =>{
+    console.log("get All Data")
+    res.send("successful")
+});
+
+app.delete("/admin/deleteData", (req, res) => {
+    console.log("Deleted");
+    res.send("Data deleted successfully")
+})
+
+app.get("/user/login", (req, res) => {
+    res.send("Login successful")
+})
+
+app.get("/user", userAuth, (req,res) =>{
+    console.log("get All user Data")
+    res.send("successful")
+});
+
 /**All these are same syntax for handling the routes i.e. syntax for route handlers 
    app.get("/user" , rh1, rh2, rh3, rh4, rh5)
    app.get("/user" , rh1, [rh2], rh3, rh4, rh5)
    app.get("/user" , rh1, [rh2, rh3, rh4], rh5)
    app.get("/user" , [rh1, [rh2], rh3, rh4, rh5])
-*/
 app.get("/user",
     (req, res, next) => {
     console.log("Request Handler 1");
@@ -26,6 +48,8 @@ app.get("/user",
         res.send("Done")
     }
 )
+    */ 
+
 // app.get("/user",(req, res) => {
 //     res.send({"firstName":"Pooja", "lastName":"Khutwad"})
 // })
