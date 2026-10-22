@@ -1,0 +1,5 @@
+-Why do we need index in DB?
+-What is the advantages and disadvantages of creating index?
+-Read this article of compound indexes => https://www.mongodb.com/docs/manual/core/indexes/index-types/index-compound/
+-$or & $and query in mongodb => https://www.mongodb.com/docs/manual/reference/mql/query-predicates/logical/
+-schema.pre("save") function

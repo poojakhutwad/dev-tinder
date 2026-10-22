@@ -1,27 +1,24 @@
-const adminAuth = (req, res, next) => {
-    console.log("Middleware for admin auth")
-    let token = "pooja"
-    const isAuthenticated = token === "pooja" 
-    if(!isAuthenticated){
-      res.send("User is not Authenticated")
-    }
-    else{
-        next()
-    }
-}
-
-const userAuth = (req, res, next) => {
-    let token = "Pooja"
-    const isAuthenticated = token === "Pooja"
-    if(!isAuthenticated){
-        res.status(401).send("Not autthenticated")
-    }
-    else{
-        next()
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+const userAuth = async (req, res, next) => {
+    try {
+        const { token } = req.cookies;
+        if (!token) {
+            throw new Error("Invalid Token!!!")
+        }
+        const decodedObj = await jwt.verify(token, "devTinder@22");
+        const { _id } = decodedObj;
+        const user = await User.findById(_id);
+        if (!user) {
+            throw new Error("USer Not Found");
+        }
+        req.user = user;
+        next();
+    } catch (err) {
+        res.status(400).send("ERROR: " + err.message);
     }
 }
 
 module.exports = {
-    adminAuth,
     userAuth
 }

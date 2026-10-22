@@ -16,4 +16,15 @@ const Validator = (req) => {
    }
 }
 
-module.exports = {Validator}
+const validateEditUser = (req) => {
+  const allowedEditFields = ["firstName", "lastName","emailId", "photoUrl","gender","age","about","skills"];
+  const isEditAllowed = Object.keys(req.body).every(field =>  allowedEditFields.includes(field));
+  return isEditAllowed;
+}
+
+const validateForgotPassword = (req) => {
+  const isEditPasswordAllowed = Object.keys(req.body).every(field => field === "password");
+  return password;
+}
+
+module.exports = {Validator, validateEditUser, validateForgotPassword}
