@@ -10,6 +10,7 @@ const { userAuth } = require("./middleware/auth");
 const authRouter = require("./routes/auth");
 const profileRouter =  require("./routes/profile");
 const requestsRouter = require("./routes/requests");
+const userRouter = require("./routes/user");
 
 const app = express() // creating the instance of an expressjs application i.e. creating new expressjs app
 
@@ -19,6 +20,7 @@ app.use(cookieParser())
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestsRouter);
+app.use("/", userRouter);
 
 //update the user
 app.patch("/user/:userId", async (req, res) => {
